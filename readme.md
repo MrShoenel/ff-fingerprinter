@@ -18,7 +18,9 @@ Here is how to run FF-FingerPrinter from CLI:
 <pre>node ./cli/cli.js -h
   Usage: cli [options]
 
-  FF-Fingerprinter uses FFmpeg to analyze and fingerprint media files. It provides extensive information as obtained from FFprobe and adds hashes to each stream and the file as a whole. The path to the file must be the last argument.
+  FF-Fingerprinter uses FFmpeg to analyze and fingerprint media files. It provides extensive
+  information as obtained from FFprobe and adds hashes to each stream and the file as a whole.
+  The path to the file must be the last argument.
 
   Options:
 
