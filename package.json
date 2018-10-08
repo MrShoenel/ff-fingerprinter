@@ -1,6 +1,6 @@
 {
   "name": "sh.ff-fingerprinter",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "FF-FingerPrinter is a tool to create fingerprints of media files using their streams and properties thereof.",
   "main": "index.js",
   "directories": {
