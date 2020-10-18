@@ -7,6 +7,12 @@
  */
 
 /**
+ * @typedef MediaInfoConf
+ * @type {Object}
+ * @property {string} mediaInfoPath
+ */
+
+/**
  * @typedef Tags
  * @type {Object.<string, string>}
  */
@@ -52,11 +58,14 @@
  * @typedef FingerprintOptions
  * @type {Object}
  * @property {FFmpegConf} ffConf
+ * @property {MediaInfoConf} miConf
  * @property {HashOptions} hashConf
  * @property {boolean} skipProbing
  * @property {boolean} skipChapters
  * @property {boolean} skipHashing
  * @property {boolean} skipFFversions
+ * @property {boolean} skipMediaInfo
+ * @property {boolean} skipMediaInfoVersion
  */
 
 
@@ -107,6 +116,7 @@
  * @type {Object}
  * @property {string} ffmpegVersion
  * @property {string} ffprobeVersion
+ * @property {string} [mediaInfoVersion]
  * @property {string} ffFingerprintVersion
  */
 
@@ -176,6 +186,7 @@
  * @property {string} bit_rate
  * @property {number} probe_score
  * @property {Tags} tags
+ * @property {MediaInfoGeneralStream} [media_info]
  */
 
 /**
@@ -198,6 +209,7 @@
  * @property {string} [duration]
  * @property {StreamDisposition} disposition
  * @property {Tags} tags
+ * @property {MediaInfoStreamBase} [media_info]
  */
 
 /**
@@ -217,6 +229,114 @@
  * @property {string} [chroma_location]
  * @property {number} refs
  * @property {string} [bits_per_raw_sample]
+ * @property {MediaInfoVideoStream} [media_info]
+ */
+
+/**
+ * @typedef {Object} MediaInfoStreamBase
+ * @property {String} _type Corresponds to \@type
+ * @property {Number} [_typeorder] Corresponds to \@typeorder
+ * @property {Number} StreamOrder
+ * @property {Number} ID
+ * @property {String|Number} UniqueID
+ * @property {String} Title
+ * @property {String} Language
+ * @property {Boolean} Default
+ * @property {Boolean} Forced
+ * @property {String} Format
+ * @property {String} [Format_Commercial_IfAny]
+ * @property {String} CodecID
+ * @property {Number} Duration
+ * @property {Number} BitRate
+ * @property {String} [BitRate_Mode]
+ * @property {Number} [BitRate_Maximum]
+ * @property {Number} [FrameRate]
+ * @property {Number} [FrameCount]
+ * @property {Number} [BitDepth]
+ * @property {Number} [Delay]
+ * @property {String} [Delay_Source]
+ * @property {Number} StreamSize
+ * @property {Number} StreamSize_Proportion
+ * @property {Object<String, String|Number>} [extra]
+ */
+
+/**
+ * @typedef {MediaInfoStreamBase} MediaInfoGeneralStream
+ * @property {Number} VideoCount
+ * @property {Number} AudioCount
+ * @property {Number} TextCount
+ * @property {Number} MenuCount
+ * @property {String} FileExtension
+ * @property {String|Number} Format_Version
+ * @property {Number} FileSize
+ * @property {Number} [OverallBitRate]
+ * @property {String} [OverallBitRate_Mode]
+ * @property {Boolean} [IsStreamable]
+ * @property {String} File_Created_Date
+ * @property {String} File_Created_Date_Local
+ * @property {String} File_Modified_Date
+ * @property {String} File_Modified_Date_Local
+ * @property {String} [Encoded_Application]
+ * @property {String} [Encoded_Library]
+ * @property {String} [Encoded_Library_Name]
+ * @property {String} [Encoded_Library_Version]
+ * @property {String} [Encoded_Library_Settings]
+ * @property {Boolean} [Cover]
+ */
+
+/**
+ * @typedef {MediaInfoStreamBase} MediaInfoVideoStream
+ * @property {String} [Format_Profile]
+ * @property {String} [Format_Level]
+ * @property {String} [Format_Tier]
+ * @property {String} [HDR_Format]
+ * @property {String} [HDR_Format_Compatibility]
+ * @property {Number} Width
+ * @property {Number} Height
+ * @property {Number} Sampled_Width
+ * @property {Number} Sampled_Height
+ * @property {Number} PixelAspectRatio
+ * @property {Number} DisplayAspectRatio
+ * @property {String} FrameRate_Mode
+ * @property {String} ColorSpace
+ * @property {String} ChromaSubsampling
+ * @property {String} ChromaSubsampling_Position
+ * @property {Boolean} [colour_description_present]
+ * @property {String} [colour_description_present_Source]
+ * @property {String} [colour_range]
+ * @property {String} [colour_range_Source]
+ * @property {String} [colour_primaries]
+ * @property {String} [colour_primaries_Source]
+ * @property {String} [transfer_characteristics]
+ * @property {String} [transfer_characteristics_Source]
+ * @property {String} [matrix_coefficients]
+ * @property {String} [matrix_coefficients_Source]
+ * @property {String} [MasteringDisplay_ColorPrimaries]
+ * @property {String} [MasteringDisplay_ColorPrimaries_Source]
+ * @property {String} [MasteringDisplay_Luminance]
+ * @property {String} [MasteringDisplay_Luminance_Source]
+ * @property {String} [MaxCLL]
+ * @property {String} [MaxCLL_Source]
+ * @property {String} [MaxFALL]
+ * @property {String} [MaxFALL_Source]
+ */
+
+/**
+ * @typedef {MediaInfoStreamBase} MediaInfoTextStream
+ * @property {String} [MuxingMode]
+ */
+
+/**
+ * @typedef {MediaInfoStreamBase} MediaInfoAudioStream
+ * @property {Number} [Format_Settings_Endianness]
+ * @property {Number} [Format_AdditionalFeatures]
+ * @property {Number} Channels
+ * @property {String} ChannelPositions
+ * @property {String} ChannelLayout
+ * @property {Number} SamplingRate
+ * @property {Number} SamplingCount
+ * @property {Number} [SamplesPerFrame]
+ * @property {String} [Compression_Mode]
  */
 
 /**
@@ -229,11 +349,25 @@
  * @property {string} channel_layout
  * @property {string} [bit_rate]
  * @property {string} [max_bit_rate]
+ * @property {MediaInfoAudioStream} [media_info]
+ */
+
+/**
+ * @typedef ProbeResultMediaInfoTracks
+ * @property {String} _ref
+ * @property {Array<MediaInfoStreamBase|MediaInfoGeneralStream|MediaInfoVideoStream|MediaInfoAudioStream|MediaInfoTextStream>} track
+ */
+
+/**
+ * @typedef ProbeResultMediaInfo
+ * @type {Object}
+ * @property {ProbeResultMediaInfoTracks} media
  */
 
 /**
  * @typedef ProbedSubtitleStreamBase
  * @type {Object}
+ * @property {MediaInfoTextStream} [media_info]
  */
 
 /**
