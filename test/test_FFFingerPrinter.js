@@ -16,9 +16,12 @@ const readTestFile = name => {
 const fpOptions = {
   ffConf: {
     enableMjpegWorkaround: true,
-    ffmpegPath: 'C:\\users\\admin\\desktop\\ff\\ffmpeg.exe',
-    ffprobePath: 'C:\\users\\admin\\desktop\\ff\\ffprobe.exe'
-  },
+    ffmpegPath: 'ffmpeg',
+    ffprobePath: 'ffprobe'
+	},
+	miConf: {
+		mediaInfoPath: 'mediainfo'
+	},
   hashConf: defaultHashOptions
 };
 

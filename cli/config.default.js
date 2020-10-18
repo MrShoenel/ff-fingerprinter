@@ -9,10 +9,19 @@ const { defaultHashOptions } = require('../lib/FFFingerPrinter');
 const createDefaultConfig = () => {
   return {
     ffConf: {
-      ffmpegPath: 'c:\\users\\admin\\desktop\\ff\\ffmpeg.exe',
-      ffprobePath: 'c:\\users\\admin\\desktop\\ff\\ffprobe.exe',
+      ffmpegPath: 'ffmpeg',
+      ffprobePath: 'ffprobe',
       enableMjpegWorkaround: true
-    },
+		},
+		miConf: {
+			mediaInfoPath: 'mediainfo'
+		},
+		skipChapters: false,
+		skipHashing: false,
+		skipProbing: false,
+		skipFFversions: false,
+		skipMediaInfo: true,
+		skipMediaInfoVersion: false,
     hashConf: defaultHashOptions
   };
 };

@@ -22,8 +22,10 @@ program
   .option('--only-hash', 'Optional. If provided, only the value of "hashAll" will be printed.', false)
   .option('--skip-probe', 'Optional. If provided, will not probe the file for its contents.')
   .option('--skip-hash', 'Optional. If provided, will only probe the file and skip hashing entirely.', false)
-  .option('--skip-chapters', 'Optional. If provided, will not include the chapters in the probing or hashing.', false)
-  .option('--skip-ffversions', 'Optional. If provided, will not include the ffmpeg and ffprobe versions in the output.', false)
+	.option('--skip-chapters', 'Optional. If provided, will not include the chapters in the probing or hashing.', false)
+	.option('--skip-mediainfo', 'Optional. If provided, will not probe the file additionally using MediaInfo. This option requires probing.', false)
+	.option('--skip-ffversions', 'Optional. If provided, will not include the ffmpeg and ffprobe versions in the output.', false)
+	.option('--skip-miversion', 'Optional. If provided, will not include the MediaInfo version in the output', false)
   .description('FF-Fingerprinter uses FFmpeg to analyze and fingerprint media files. It provides extensive information as obtained from FFprobe and adds hashes to each stream and the file as a whole. The path to the file must be the last argument.')
   .parse(process.argv);
 
@@ -43,26 +45,23 @@ if (program.ffmpeg) {
 if (program.ffprobe) {
   config.ffConf.ffprobePath = program.ffprobe;
 }
-if (program.skipProbe) {
-  config.skipProbing = true;
-}
-if (program.skipHash) {
-  config.skipHashing = true;
-}
-if (program.skipChapters) {
-  config.hashConf.includeChapters = false;
-  config.skipChapters = true;
-}
-if (program.skipFfversions) {
-  config.skipFFversions = true;
-}
+
+config.skipProbing = !!program.skipProbe;
+config.skipHashing = !!program.skipHash;
+config.skipMediaInfo = !!program.skipMediainfo;
+config.skipFFversions = !!program.skipFfversions;
+config.skipMediaInfoVersion = !!program.skipMiversion;
+config.skipChapters = !!program.skipChapters;
+config.hashConf.includeChapters = !program.skipChapters;
 
 
 (async() => {
   const fffp = new FFFingerPrinter(program.args[0], config);
   if (program.quiet) {
     fffp.logger.logLevel = LogLevel.None;
-  }
+  } else {
+		fffp.logger.logDebug(`Using the following configuration: ${JSON.stringify(config, null, 2)}`);
+	}
 
   try {
     const result = await fffp.fingerprint();
