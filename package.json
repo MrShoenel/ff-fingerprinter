@@ -1,6 +1,11 @@
 {
   "name": "sh.ff-fingerprinter",
-  "version": "1.1.4",
+  "version": "1.2.0",
+  "author": "Sebastian Hönel <development@hoenel.net>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MrShoenel/ff-fingerprinter"
+  },
   "description": "FF-FingerPrinter is a tool to create fingerprints of media files using their streams and properties thereof.",
   "main": "index.js",
   "directories": {
@@ -17,15 +22,14 @@
     "hash",
     "hashing"
   ],
-  "author": "Sebastian Hönel <development@hoenel.net>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.19.0",
-    "sh.log-client": "^2.10.3",
-    "sh.orchestration-tools": "^2.20.0"
+    "commander": "^2.19.*",
+    "sh.log-client": "^2.*",
+    "sh.orchestration-tools": "^3.*"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "chai": "^4.2.*",
+    "mocha": "^8.1.*"
   }
 }
