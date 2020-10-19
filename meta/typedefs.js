@@ -233,9 +233,10 @@
  */
 
 /**
- * @typedef {Object} MediaInfoStreamBase
- * @property {String} _type Corresponds to \@type
- * @property {Number} [_typeorder] Corresponds to \@typeorder
+ * @typedef MediaInfoStreamBase
+ * @type {Object}
+ * @property {String} _type Corresponds to #type
+ * @property {Number} [_typeorder] Corresponds to #typeorder
  * @property {Number} StreamOrder
  * @property {Number} ID
  * @property {String|Number} UniqueID
@@ -257,11 +258,12 @@
  * @property {String} [Delay_Source]
  * @property {Number} StreamSize
  * @property {Number} StreamSize_Proportion
- * @property {Object<String, String|Number>} [extra]
+ * @property {Object<string, string|number>} [extra]
  */
 
 /**
- * @typedef {MediaInfoStreamBase} MediaInfoGeneralStream
+ * @typedef MediaInfoGeneralStreamBase
+ * @type {Object}
  * @property {Number} VideoCount
  * @property {Number} AudioCount
  * @property {Number} TextCount
@@ -285,7 +287,13 @@
  */
 
 /**
- * @typedef {MediaInfoStreamBase} MediaInfoVideoStream
+ * @typedef MediaInfoGeneralStream
+ * @type {MediaInfoStreamBase | MediaInfoGeneralStreamBase}
+ */
+
+/**
+ * @typedef MediaInfoVideoStreamBase
+ * @type {Object}
  * @property {String} [Format_Profile]
  * @property {String} [Format_Level]
  * @property {String} [Format_Tier]
@@ -322,12 +330,24 @@
  */
 
 /**
- * @typedef {MediaInfoStreamBase} MediaInfoTextStream
+ * @typedef MediaInfoVideoStream
+ * @type {MediaInfoStreamBase | MediaInfoVideoStreamBase}
+ */
+
+/**
+ * @typedef MediaInfoTextStreamBase
+ * @type {Object}
  * @property {String} [MuxingMode]
  */
 
 /**
- * @typedef {MediaInfoStreamBase} MediaInfoAudioStream
+ * @typedef MediaInfoTextStream
+ * @type {MediaInfoStreamBase | MediaInfoTextStreamBase}
+ */
+
+/**
+ * @typedef MediaInfoAudioStreamBase
+ * @type {Object}
  * @property {Number} [Format_Settings_Endianness]
  * @property {Number} [Format_AdditionalFeatures]
  * @property {Number} Channels
@@ -337,6 +357,11 @@
  * @property {Number} SamplingCount
  * @property {Number} [SamplesPerFrame]
  * @property {String} [Compression_Mode]
+ */
+
+/**
+ * @typedef MediaInfoAudioStream
+ * @type {MediaInfoStreamBase | MediaInfoAudioStreamBase}
  */
 
 /**
@@ -381,6 +406,6 @@
  */
 
 /**
- * @typedef {ProbedSubtitleStream}
+ * @typedef ProbedSubtitleStream
  * @type {ProbedStream|ProbedSubtitleStreamBase}
  */
