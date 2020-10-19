@@ -68,7 +68,12 @@ config.hashConf.includeChapters = !program.skipChapters;
     if (program.onlyHash) {
       console.log(result.hashInfo.hashAll);
     } else {
-      console.log(JSON.stringify(result, null, program.format ? '  ' : ''));
+      console.log(JSON.stringify(result, (key, value) => {
+				if (typeof value === 'bigint') {
+					return value.toString();
+				}
+				return value;
+			}, program.format ? '  ' : ''));
     }
   } catch (e) {
     console.error(e);
