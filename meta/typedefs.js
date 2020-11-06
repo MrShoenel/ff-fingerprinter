@@ -192,6 +192,7 @@
 /**
  * @typedef ProbedStream
  * @type {Object}
+ * @property {number} [id]
  * @property {number} index
  * @property {string} codec_name
  * @property {string} codec_long_name
